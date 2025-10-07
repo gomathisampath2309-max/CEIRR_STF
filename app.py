@@ -36,6 +36,15 @@ df_today["sample_id"] = np.where(
     df_today["sample_scan_manually"]
 )
 
+# --- Map Sample Type Numbers to Text ---
+sample_type_map = {
+    "1": "Nasal swab",
+    "2": "Blood",
+    "3": "Mucosal"
+}
+
+df_today["sample_type"] = df_today["sample_type"].astype(str).map(sample_type_map).fillna(df_today["sample_type"])
+
 # --- Select Final Columns ---
 table = df_today[["sample_id", "sample_date_time", "type_cohort", "sample_type"]].copy()
 table.columns = ["Sample ID", "Sample Date/Time", "Cohort Type", "Sample Type"]
